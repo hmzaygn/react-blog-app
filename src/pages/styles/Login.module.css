@@ -1,0 +1,33 @@
+.login-main {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-image: url('https://picsum.photos/1600/900');
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.form {
+    border: 1px solid red;
+    width: 50%;
+    min-width: 20rem;
+    max-width: 30rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 1rem;
+    background: rgba(26, 20, 20, 0.31);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(4.3px);
+    -webkit-backdrop-filter: blur(4.3px);
+    border: 1px solid rgba(26, 20, 20, 0.5);
+}
+
+.form input {
+    color: rgb(255, 255, 255);
+    width: 100%;
+}
