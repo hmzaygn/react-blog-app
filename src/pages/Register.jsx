@@ -5,6 +5,7 @@ import loginStyle from "./styles/Login.module.css";
 import FingerprintIcon from "@mui/icons-material/Fingerprint";
 import { useState } from "react";
 import useAuthCalls from "../hooks/useAuthCalls";
+import blogImage from "../assets/laptop.png";
 
 const Register = () => {
   const { register } = useAuthCalls();
@@ -22,7 +23,7 @@ const Register = () => {
     setInfo({ ...info, [name]: value });
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     register(info);
   };
@@ -35,7 +36,7 @@ const Register = () => {
         onSubmit={handleSubmit}
       >
         <Box sx={{ textAlign: "center" }}>
-          <img src="./assets/blog.png" alt="blog" width={"150px"} />
+          <img src={blogImage} alt="blog" width={"150px"} />
         </Box>
         <TextField
           required
