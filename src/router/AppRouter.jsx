@@ -7,6 +7,7 @@ import Profile from "../pages/Profile";
 import NewBlog from "../pages/NewBlog";
 import UpdateBlog from "../pages/UpdateBlog";
 import Details from "../pages/Details";
+import PrivateRouter from "./PrivateRouter";
 
 const AppRouter = () => {
   return (
@@ -15,10 +16,22 @@ const AppRouter = () => {
         <Route index element={<Dashboard />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
-        <Route path="/profile" element={<Profile />} />
-        <Route path="/newblog" element={<NewBlog />} />
-        <Route path="/updateblog" element={<UpdateBlog />} />
-        <Route path="/details" element={<Details />} />
+
+        <Route path="/details/:id" element={<PrivateRouter />}>
+          <Route path="" element={<Details />} />
+        </Route>
+
+        <Route path="/profile" element={<PrivateRouter />}>
+          <Route path="" element={<Profile />} />
+        </Route>
+
+        <Route path="/newblog" element={<PrivateRouter />}>
+          <Route path="" element={<NewBlog />} />
+        </Route>
+
+        <Route path="/updateblog" element={<PrivateRouter />}>
+          <Route path="" element={<UpdateBlog />} />
+        </Route>
       </Routes>
     </BrowserRouter>
   );

@@ -19,8 +19,6 @@ const Login = () => {
     setInfo({ ...info, [name]: value });
   };
 
-  console.log(info);
-
   const handleSubmit = (e) => {
     e.preventDefault();
     login(info);

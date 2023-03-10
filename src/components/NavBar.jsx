@@ -10,12 +10,19 @@ import Avatar from "@mui/material/Avatar";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import RateReviewTwoToneIcon from "@mui/icons-material/RateReviewTwoTone";
+import { useNavigate } from "react-router";
+import useAuthCalls from "../hooks/useAuthCalls";
+import { useAuthContext } from "../contexts/AuthProvider";
 
-const settings = ["Profile", "Dashboard", "New Blog", "Logout"];
+const settings = ["Profile", "Dashboard", "New Blog"];
 
 function NavBar() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
+  const navigate = useNavigate();
+  const { currentUser } = useAuthContext();
+
+  const { logout } = useAuthCalls();
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -106,9 +113,19 @@ function NavBar() {
             >
               {settings.map((setting) => (
                 <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center">{setting}</Typography>
+                  <Typography
+                    textAlign="center"
+                    onClick={() => navigate("/profile")}
+                  >
+                    {setting}
+                  </Typography>
                 </MenuItem>
               ))}
+              <MenuItem>
+                <Typography onClick={() => logout(currentUser)}>
+                  LogOut
+                </Typography>
+              </MenuItem>
             </Menu>
           </Box>
         </Toolbar>

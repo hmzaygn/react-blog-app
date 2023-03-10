@@ -5,7 +5,7 @@ import { useAuthContext } from "../contexts/AuthProvider";
 const useAuthCalls = () => {
   const BASE_URL = "http://127.0.0.1:8000/";
   const navigate = useNavigate();
-  const { setCurrentUser, currentUser } = useAuthContext();
+  const { setCurrentUser, currentUser } = useAuthContext({});
 
   const register = async (registerData) => {
     try {
@@ -13,7 +13,8 @@ const useAuthCalls = () => {
         `${BASE_URL}users/register/`,
         registerData
       );
-      setCurrentUser(data.data);
+      setCurrentUser(data);
+      localStorage.setItem("USER", JSON.stringify(data));
       navigate("/");
     } catch (error) {
       console.log(error);
@@ -26,7 +27,12 @@ const useAuthCalls = () => {
         `${BASE_URL}users/auth/login/`,
         loginData
       );
-      setCurrentUser(data);
+      console.log(data);
+      setCurrentUser({ ...data.user, key: data.key });
+      localStorage.setItem(
+        "USER",
+        JSON.stringify({ ...data.user, key: data.key })
+      );
       navigate("/");
     } catch (error) {
       console.log(error);
@@ -35,9 +41,11 @@ const useAuthCalls = () => {
 
   const logout = async (data) => {
     try {
-      const userData = await axios.post(`${BASE_URL}users/auth/logout`, {
-        headers: { Authorization: `Token ${data.token}` },
+      await axios.post(`${BASE_URL}users/auth/logout/`, null, {
+        headers: { Authorization: `Token ${data.key}` },
       });
+
+      localStorage.removeItem("USER");
       navigate("/login");
     } catch (error) {
       console.log(error);
