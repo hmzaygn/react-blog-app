@@ -5,7 +5,7 @@ import { useAuthContext } from "../contexts/AuthProvider";
 const useAuthCalls = () => {
   const BASE_URL = "http://127.0.0.1:8000/";
   const navigate = useNavigate();
-  const { setCurrentUser, currentUser } = useAuthContext({});
+  const { setCurrentUser, currentUser } = useAuthContext();
 
   const register = async (registerData) => {
     try {
