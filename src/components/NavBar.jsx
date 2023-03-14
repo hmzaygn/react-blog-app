@@ -17,22 +17,14 @@ import { useAuthContext } from "../contexts/AuthProvider";
 const settings = ["Profile", "Dashboard", "New Blog"];
 
 function NavBar() {
-  const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
   const navigate = useNavigate();
   const { currentUser } = useAuthContext();
 
   const { logout } = useAuthCalls();
 
-  const handleOpenNavMenu = (event) => {
-    setAnchorElNav(event.currentTarget);
-  };
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
-  };
-
-  const handleCloseNavMenu = () => {
-    setAnchorElNav(null);
   };
 
   const handleCloseUserMenu = () => {
@@ -122,9 +114,15 @@ function NavBar() {
                 </MenuItem>
               ))}
               <MenuItem>
-                <Typography onClick={() => logout(currentUser)}>
-                  LogOut
-                </Typography>
+                {currentUser ? (
+                  <Typography onClick={() => logout(currentUser)}>
+                    LogOut
+                  </Typography>
+                ) : (
+                  <Typography onClick={() => navigate("/login")}>
+                    LogIn
+                  </Typography>
+                )}
               </MenuItem>
             </Menu>
           </Box>

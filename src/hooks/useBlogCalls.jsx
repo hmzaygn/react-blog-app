@@ -46,7 +46,44 @@ const useBlogCalls = () => {
     }
   };
 
-  return { getBlogs, getBlogDetail, like };
+  const postComment = async (commentData) => {
+    try {
+      await axios.post(`${BASE_URL}api/comment/`, commentData, {
+        headers: { Authorization: `Token ${currentUser?.key}` },
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const deleteBlog = async (id) => {
+    try {
+      await axios.delete(`${BASE_URL}api/blog/delete/${id}/`, {
+        headers: { Authorization: `Token ${currentUser?.key}` },
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const deleteComment = async (id) => {
+    try {
+      await axios.delete(`${BASE_URL}api/comment/${id}/`, {
+        headers: { Authorization: `Token ${currentUser?.key}` },
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  return {
+    getBlogs,
+    getBlogDetail,
+    like,
+    postComment,
+    deleteBlog,
+    deleteComment,
+  };
 };
 
 export default useBlogCalls;

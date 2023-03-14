@@ -17,7 +17,7 @@ const Dashboard = () => {
 
   useEffect(() => {
     getBlogs(setBlogInfo);
-  }, []);
+  }, [blogInfo.length]);
 
   // console.log(currentUser);
 
@@ -29,7 +29,7 @@ const Dashboard = () => {
           <Grid
             item
             key={blog.id}
-            onClick={() => navigate(`/details/${blog?.id}`)}
+            // onClick={() => navigate(`/details/${blog?.id}`)}
           >
             <BlogCard blog={blog} setBlogInfo={setBlogInfo} />
           </Grid>

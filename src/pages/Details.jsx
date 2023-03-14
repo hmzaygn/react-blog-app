@@ -25,7 +25,10 @@ const Details = () => {
           border: "1px solid red",
         }}
       >
-        <DetailCard blogDetailInfo={blogDetailInfo} />
+        <DetailCard
+          blogDetailInfo={blogDetailInfo}
+          setBlogDetailInfo={setBlogDetailInfo}
+        />
       </Container>
     </>
   );
