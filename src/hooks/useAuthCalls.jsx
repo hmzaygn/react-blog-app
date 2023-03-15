@@ -28,7 +28,15 @@ const useAuthCalls = () => {
         avatar: profileData.avatar,
         bio: profileData.bio,
       });
-      localStorage.setItem("USER", JSON.stringify(data));
+      localStorage.setItem(
+        "USER",
+        JSON.stringify({
+          ...data,
+          display_name: profileData.display_name,
+          avatar: profileData.avatar,
+          bio: profileData.bio,
+        })
+      );
       navigate("/");
     } catch (error) {
       console.log(error);
@@ -51,7 +59,13 @@ const useAuthCalls = () => {
       });
       localStorage.setItem(
         "USER",
-        JSON.stringify({ ...data.user, key: data.key })
+        JSON.stringify({
+          ...data.user,
+          key: data.key,
+          display_name: profileData.display_name,
+          avatar: profileData.avatar,
+          bio: profileData.bio,
+        })
       );
       navigate("/");
     } catch (error) {

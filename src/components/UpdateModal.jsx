@@ -33,7 +33,7 @@ export default function UpdateModal({
     setBlogDetailInfo({ ...blogDetailInfo, [name]: value });
   };
 
-  console.log(blogDetailInfo);
+  //   console.log(blogDetailInfo);
 
   return (
     <div>
