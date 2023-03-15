@@ -5,11 +5,13 @@ import useBlogCalls from "../hooks/useBlogCalls";
 import Box from "@mui/material/Box";
 import DetailCard from "../components/DetailCard";
 import { Container } from "@mui/material";
+import UpdateModal from "../components/UpdateModal";
 
 const Details = () => {
   const { id } = useParams();
   const { getBlogDetail } = useBlogCalls();
   const [blogDetailInfo, setBlogDetailInfo] = useState("");
+  const [open, setOpen] = React.useState(false);
 
   useEffect(() => {
     getBlogDetail(id, setBlogDetailInfo);
@@ -25,9 +27,17 @@ const Details = () => {
           border: "1px solid red",
         }}
       >
+        <UpdateModal
+          open={open}
+          setOpen={setOpen}
+          blogDetailInfo={blogDetailInfo}
+          setBlogDetailInfo={setBlogDetailInfo}
+        />
         <DetailCard
           blogDetailInfo={blogDetailInfo}
           setBlogDetailInfo={setBlogDetailInfo}
+          setOpen={setOpen}
+          open={open}
         />
       </Container>
     </>

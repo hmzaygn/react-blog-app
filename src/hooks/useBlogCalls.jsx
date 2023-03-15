@@ -56,6 +56,20 @@ const useBlogCalls = () => {
     }
   };
 
+  const updateBlog = async (blogDetailInfo) => {
+    try {
+      await axios.put(
+        `${BASE_URL}api/blog/update/${blogDetailInfo.id}/`,
+        blogDetailInfo,
+        {
+          headers: { Authorization: `Token ${currentUser?.key}` },
+        }
+      );
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const deleteBlog = async (id) => {
     try {
       await axios.delete(`${BASE_URL}api/blog/delete/${id}/`, {
@@ -81,6 +95,7 @@ const useBlogCalls = () => {
     getBlogDetail,
     like,
     postComment,
+    updateBlog,
     deleteBlog,
     deleteComment,
   };

@@ -19,16 +19,20 @@ import cardStyle from "./styles/DetailCard.module.css";
 import { useNavigate } from "react-router";
 import DeleteIcon from "@mui/icons-material/Delete";
 
-export default function DetailCard({ blogDetailInfo, setBlogDetailInfo }) {
+export default function DetailCard({
+  blogDetailInfo,
+  setBlogDetailInfo,
+  setOpen,
+}) {
   const { like, getBlogDetail, postComment, deleteBlog, deleteComment } =
     useBlogCalls();
   const [comment, setComment] = React.useState("");
   const { currentUser } = useAuthContext();
   const navigate = useNavigate();
 
-  console.log(blogDetailInfo);
-  console.log(comment);
-  console.log(currentUser);
+  // console.log(blogDetailInfo);
+  // console.log(comment);
+  // console.log(currentUser);
 
   const handleClick = () => {
     like(blogDetailInfo?.id);
@@ -102,7 +106,12 @@ export default function DetailCard({ blogDetailInfo, setBlogDetailInfo }) {
 
         {currentUser.id === blogDetailInfo.author_id && (
           <Box>
-            <Button variant="contained" color="success" sx={{ mr: ".5rem" }}>
+            <Button
+              variant="contained"
+              color="success"
+              sx={{ mr: ".5rem" }}
+              onClick={() => setOpen(true)}
+            >
               Update
             </Button>
             <Button variant="contained" color="error" onClick={handleDelete}>

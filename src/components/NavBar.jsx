@@ -77,15 +77,24 @@ function NavBar() {
               color: "inherit",
               textDecoration: "none",
             }}
+            onClick={() => navigate("/")}
           >
             BLOG APP
           </Typography>
 
           <Box>
             <Tooltip title="Open settings">
-              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
-              </IconButton>
+              {currentUser.avatar ? (
+                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                  <Avatar alt="avatar" src={currentUser.avatar} />
+                </IconButton>
+              ) : (
+                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                  <Avatar alt="avatar">
+                    {currentUser.username.slice(0, 1).toUpperCase()}
+                  </Avatar>
+                </IconButton>
+              )}
             </Tooltip>
             <Menu
               sx={{ mt: "45px" }}

@@ -7,13 +7,27 @@ const useAuthCalls = () => {
   const navigate = useNavigate();
   const { setCurrentUser, currentUser } = useAuthContext();
 
+  const getProfile = async (id, token) => {
+    const { data } = await axios.get(`${BASE_URL}users/profile/${id}/`, {
+      headers: { Authorization: `Token ${token}` },
+    });
+
+    return data;
+  };
+
   const register = async (registerData) => {
     try {
       const { data } = await axios.post(
         `${BASE_URL}users/register/`,
         registerData
       );
-      setCurrentUser(data);
+      const profileData = await getProfile(data.id, data.key);
+      setCurrentUser({
+        ...data,
+        display_name: profileData.display_name,
+        avatar: profileData.avatar,
+        bio: profileData.bio,
+      });
       localStorage.setItem("USER", JSON.stringify(data));
       navigate("/");
     } catch (error) {
@@ -27,8 +41,14 @@ const useAuthCalls = () => {
         `${BASE_URL}users/auth/login/`,
         loginData
       );
-      console.log(data);
-      setCurrentUser({ ...data.user, key: data.key });
+      const profileData = await getProfile(data.user.id, data.key);
+      setCurrentUser({
+        ...data.user,
+        key: data.key,
+        display_name: profileData.display_name,
+        avatar: profileData.avatar,
+        bio: profileData.bio,
+      });
       localStorage.setItem(
         "USER",
         JSON.stringify({ ...data.user, key: data.key })
