@@ -10,8 +10,8 @@ import Typography from "@mui/material/Typography";
 import { red } from "@mui/material/colors";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import BarChartIcon from "@mui/icons-material/BarChart";
-import cardStyle from "./styles/BlogCard.module.css";
-import useBlogCalls from "../hooks/useBlogCalls";
+import cardStyle from "../styles/BlogCard.module.css";
+import useBlogCalls from "../../hooks/useBlogCalls";
 import { Box } from "@mui/system";
 import { useNavigate } from "react-router";
 

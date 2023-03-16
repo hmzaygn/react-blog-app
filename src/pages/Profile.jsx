@@ -1,132 +1,105 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import NavBar from "../components/NavBar";
-import {
-  Avatar,
-  Button,
-  Modal,
-  TextField,
-  Box,
-  Typography,
-} from "@mui/material";
+import { Avatar, Button, Box, Typography } from "@mui/material";
 import { useAuthContext } from "../contexts/AuthProvider";
 import defaultAvatar from "../assets/blank-profile-picture-973460_1280.png";
+import ProfileModal from "../components/modals/ProfileModal";
+import useAuthCalls from "../hooks/useAuthCalls";
+import useBlogCalls from "../hooks/useBlogCalls";
+import ProfileCards from "../components/cards/ProfileCards";
 
 const Profile = () => {
   const { currentUser } = useAuthContext();
-  console.log(currentUser);
-  // kullanıcının mevcut bilgilerini state olarak tutuyoruz
-  const [user, setUser] = useState({
-    name: "John Doe",
-    email: "johndoe@example.com",
-    image: "https://via.placeholder.com/150",
-  });
+  const { updateProfile } = useAuthCalls();
+  const { getUsersBlogs } = useBlogCalls();
+  // console.log(currentUser);
 
-  // modalın açılıp kapanmasını kontrol etmek için state kullanıyoruz
   const [open, setOpen] = useState(false);
+  const [usersBlogs, setUsersBlogs] = useState([]);
 
-  // kullanıcının bilgilerini güncellemek için state kullanıyoruz
   const [updatedUser, setUpdatedUser] = useState({
-    name: user.name,
-    email: user.email,
-    image: user.image,
+    display_name: currentUser.display_name,
+    avatar: currentUser.avatar,
+    bio: currentUser.bio,
+    user_id: currentUser.id,
   });
-
-  // kullanıcının bilgilerini güncelliyoruz ve modalı kapatıyoruz
   const handleUpdate = () => {
-    setUser(updatedUser);
+    updateProfile(updatedUser);
     setOpen(false);
   };
 
-  // kullanıcının bilgilerini güncellemek için form içindeki inputların onChange metodunu kullanıyoruz
-  const handleChange = (event) => {
-    setUpdatedUser({
-      ...updatedUser,
-      [event.target.name]: event.target.value,
-    });
-  };
+  useEffect(() => {
+    getUsersBlogs(setUsersBlogs);
+  }, []);
+
+  // console.log(usersBlogs);
 
   return (
     <>
       <NavBar />
-      <Box
-        sx={{
-          display: "flex",
-          alignItems: "center",
-          flexDirection: "column",
-          mt: 5,
-        }}
-      >
-        <Avatar
-          alt={currentUser?.first_name}
-          src={currentUser.avatar || defaultAvatar}
-          sx={{ width: 150, height: 150, mb: 2 }}
-        />
-        <Typography variant="h5" sx={{ mb: 2 }}>
-          {currentUser?.first_name} {currentUser?.last_name}
-        </Typography>
-        <Typography variant="subtitle1" sx={{ mb: 2 }}>
-          {currentUser?.email}
-        </Typography>
-        <Typography variant="subtitle1" sx={{ mb: 2 }}>
-          {currentUser?.display_name}
-        </Typography>
-        <Typography variant="subtitle1" sx={{ mb: 2 }}>
-          {currentUser?.bio}
-        </Typography>
-        <Button
-          variant="contained"
-          onClick={() => setOpen(true)}
-          sx={{ mb: 2 }}
+      <Box sx={{ display: "flex" }}>
+        <Box
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            flexDirection: "column",
+            flexGrow: 1,
+            mt: 5,
+          }}
         >
-          Update Infos
-        </Button>
-        {/* <Modal open={open} onClose={() => setOpen(false)}>
-          <Box
-            sx={{
-              position: "absolute",
-              top: "50%",
-              left: "50%",
-              transform: "translate(-50%, -50%)",
-              bgcolor: "background.paper",
-              boxShadow: 24,
-              p: 4,
-            }}
+          <Avatar
+            alt={currentUser?.first_name}
+            src={currentUser.avatar || defaultAvatar}
+            sx={{ width: 150, height: 150, mb: 2 }}
+          />
+          <Typography variant="h5" sx={{ mb: 2 }}>
+            {currentUser?.first_name} {currentUser?.last_name}
+          </Typography>
+          <Typography variant="subtitle1" sx={{ mb: 2 }}>
+            {currentUser?.email}
+          </Typography>
+          <Typography variant="subtitle1" sx={{ mb: 2 }}>
+            {currentUser?.display_name}
+          </Typography>
+          <Typography variant="subtitle1" sx={{ mb: 2 }}>
+            {currentUser?.bio}
+          </Typography>
+          <Button
+            variant="contained"
+            onClick={() => setOpen(true)}
+            sx={{ mb: 2 }}
           >
-            <Typography variant="h6" sx={{ mb: 2 }}>
-              Bilgileri Güncelle
-            </Typography>
-            <TextField
-              label="Ad Soyad"
-              name="name"
-              defaultValue={user.name}
-              onChange={handleChange}
-              fullWidth
-              sx={{ mb: 2 }}
-            />
-            <TextField
-              label="E-posta"
-              name="email"
-              defaultValue={user.email}
-              onChange={handleChange}
-              fullWidth
-              sx={{ mb: 2 }}
-            />
-            <TextField
-              label="Resim URL"
-              name="image"
-              defaultValue={user.image}
-              onChange={handleChange}
-              fullWidth
-              sx={{ mb: 2 }}
-            />
-            <Button variant="contained" onClick={handleUpdate} sx={{ mr: 2 }}>
-              Kaydet
-            </Button>
-            <Button variant="contained" onClick={() => setOpen(false)}>
-              İptal
-            </Button>
-          </Box>
-        </Modal> */}
+            Update Infos
+          </Button>
+
+          <ProfileModal
+            open={open}
+            setOpen={setOpen}
+            updatedUser={updatedUser}
+            setUpdatedUser={setUpdatedUser}
+            handleUpdate={handleUpdate}
+          />
+        </Box>
+
+        <Box
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            flexDirection: "column",
+            flexGrow: 1,
+            gap: 1,
+            mt: 5,
+          }}
+        >
+          <Typography variant="h5">My Blogs</Typography>
+          {usersBlogs.length == 0 ? (
+            <h3>You Have No Blogs Yet</h3>
+          ) : (
+            usersBlogs?.map((blog) => (
+              <ProfileCards key={blog.id} blog={blog} />
+            ))
+          )}
+        </Box>
       </Box>
     </>
   );

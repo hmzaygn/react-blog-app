@@ -2,10 +2,9 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import NavBar from "../components/NavBar";
 import useBlogCalls from "../hooks/useBlogCalls";
-import Box from "@mui/material/Box";
-import DetailCard from "../components/DetailCard";
+import DetailCard from "../components/cards/DetailCard";
 import { Container } from "@mui/material";
-import UpdateModal from "../components/UpdateModal";
+import UpdateModal from "../components/modals/UpdateModal";
 
 const Details = () => {
   const { id } = useParams();

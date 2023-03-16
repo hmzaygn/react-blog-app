@@ -73,6 +73,37 @@ const useAuthCalls = () => {
     }
   };
 
+  const updateProfile = async (updatedUser) => {
+    try {
+      const { data } = await axios.put(
+        `${BASE_URL}users/profile/${updatedUser.user_id}/`,
+        updatedUser,
+        {
+          headers: { Authorization: `Token ${currentUser.key}` },
+        }
+      );
+
+      setCurrentUser({
+        ...currentUser,
+        display_name: data.display_name,
+        avatar: data.avatar,
+        bio: data.bio,
+      });
+
+      localStorage.setItem(
+        "USER",
+        JSON.stringify({
+          ...currentUser,
+          display_name: data.display_name,
+          avatar: data.avatar,
+          bio: data.bio,
+        })
+      );
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const logout = async (data) => {
     try {
       await axios.post(`${BASE_URL}users/auth/logout/`, null, {
@@ -86,7 +117,7 @@ const useAuthCalls = () => {
     }
   };
 
-  return { register, login, logout };
+  return { register, login, updateProfile, logout };
 };
 
 export default useAuthCalls;

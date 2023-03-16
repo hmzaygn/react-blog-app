@@ -13,8 +13,9 @@ import RateReviewTwoToneIcon from "@mui/icons-material/RateReviewTwoTone";
 import { useNavigate } from "react-router";
 import useAuthCalls from "../hooks/useAuthCalls";
 import { useAuthContext } from "../contexts/AuthProvider";
+import defaultAvatar from "../assets/blank-profile-picture-973460_1280.png";
 
-const settings = ["Profile", "Dashboard", "New Blog"];
+const settings = ["Profile", "Dashboard", "Register"];
 
 function NavBar() {
   const [anchorElUser, setAnchorElUser] = React.useState(null);
@@ -84,15 +85,13 @@ function NavBar() {
 
           <Box>
             <Tooltip title="Open settings">
-              {currentUser.avatar ? (
+              {currentUser?.avatar ? (
                 <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                   <Avatar alt="avatar" src={currentUser.avatar} />
                 </IconButton>
               ) : (
                 <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                  <Avatar alt="avatar">
-                    {currentUser.username.slice(0, 1).toUpperCase()}
-                  </Avatar>
+                  <Avatar alt="avatar" src={defaultAvatar} />
                 </IconButton>
               )}
             </Tooltip>
@@ -112,16 +111,28 @@ function NavBar() {
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
-              {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography
-                    textAlign="center"
-                    onClick={() => navigate("/profile")}
-                  >
-                    {setting}
-                  </Typography>
-                </MenuItem>
-              ))}
+              <MenuItem onClick={handleCloseUserMenu}>
+                <Typography
+                  textAlign="center"
+                  onClick={() => navigate("/profile")}
+                >
+                  Profile
+                </Typography>
+              </MenuItem>
+              <MenuItem onClick={handleCloseUserMenu}>
+                <Typography textAlign="center" onClick={() => navigate("/")}>
+                  Dashboard
+                </Typography>
+              </MenuItem>
+              {/* <MenuItem onClick={handleCloseUserMenu}>
+                <Typography
+                  textAlign="center"
+                  onClick={() => navigate("/register")}
+                >
+                  Register
+                </Typography>
+              </MenuItem> */}
+
               <MenuItem>
                 {currentUser ? (
                   <Typography onClick={() => logout(currentUser)}>

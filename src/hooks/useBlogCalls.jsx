@@ -5,17 +5,28 @@ const useBlogCalls = () => {
   const BASE_URL = "http://127.0.0.1:8000/";
   const { currentUser } = useAuthContext();
 
-  const getBlogs = async (setBlogInfo) => {
+  const getBlogs = async (setState) => {
     try {
       if (currentUser) {
         const { data } = await axios.get(`${BASE_URL}api/blog/`, {
           headers: { Authorization: `Token ${currentUser?.key}` },
         });
-        setBlogInfo(data);
+        setState(data);
       } else {
         const { data } = await axios.get(`${BASE_URL}api/blog/`);
-        setBlogInfo(data);
+        setState(data);
       }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const getUsersBlogs = async (setState) => {
+    try {
+      const { data } = await axios.get(`${BASE_URL}api/blog/ownblogs/`, {
+        headers: { Authorization: `Token ${currentUser?.key}` },
+      });
+      setState(data);
     } catch (error) {
       console.log(error);
     }
@@ -92,6 +103,7 @@ const useBlogCalls = () => {
 
   return {
     getBlogs,
+    getUsersBlogs,
     getBlogDetail,
     like,
     postComment,

@@ -6,6 +6,9 @@ import FingerprintIcon from "@mui/icons-material/Fingerprint";
 import { useState } from "react";
 import useAuthCalls from "../hooks/useAuthCalls";
 import blogImage from "../assets/laptop.png";
+import { blueGrey } from "@mui/material/colors";
+import { useNavigate } from "react-router";
+import { Typography } from "@mui/material";
 
 const Register = () => {
   const { register } = useAuthCalls();
@@ -17,6 +20,8 @@ const Register = () => {
     password: "",
     password2: "",
   });
+
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { value, name } = e.target;
@@ -92,6 +97,13 @@ const Register = () => {
           value={info.password2 || ""}
           onChange={handleChange}
         />
+        <Typography
+          color={blueGrey[100]}
+          onClick={() => navigate("/login")}
+          sx={{ cursor: "pointer" }}
+        >
+          I have an account
+        </Typography>
         <Button type="submit" variant="contained" endIcon={<FingerprintIcon />}>
           Register
         </Button>

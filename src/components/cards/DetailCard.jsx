@@ -11,11 +11,11 @@ import { blueGrey, grey, red } from "@mui/material/colors";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import BarChartIcon from "@mui/icons-material/BarChart";
 import { Box } from "@mui/system";
-import useBlogCalls from "../hooks/useBlogCalls";
+import useBlogCalls from "../../hooks/useBlogCalls";
 import { Button, TextField } from "@mui/material";
 import SendIcon from "@mui/icons-material/Send";
-import { useAuthContext } from "../contexts/AuthProvider";
-import cardStyle from "./styles/DetailCard.module.css";
+import { useAuthContext } from "../../contexts/AuthProvider";
+import cardStyle from "../styles/DetailCard.module.css";
 import { useNavigate } from "react-router";
 import DeleteIcon from "@mui/icons-material/Delete";
 

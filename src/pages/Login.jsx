@@ -6,6 +6,9 @@ import loginStyle from "./styles/Login.module.css";
 import FingerprintIcon from "@mui/icons-material/Fingerprint";
 import useAuthCalls from "../hooks/useAuthCalls";
 import blogImage from "../assets/laptop.png";
+import { Typography } from "@mui/material";
+import { blueGrey } from "@mui/material/colors";
+import { useNavigate } from "react-router";
 
 const Login = () => {
   const { login } = useAuthCalls();
@@ -13,6 +16,8 @@ const Login = () => {
     email: "",
     password: "",
   });
+
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { value, name } = e.target;
@@ -52,6 +57,13 @@ const Login = () => {
           value={info.password || ""}
           onChange={handleChange}
         />
+        <Typography
+          color={blueGrey[100]}
+          onClick={() => navigate("/register")}
+          sx={{ cursor: "pointer" }}
+        >
+          You don't have an account!
+        </Typography>
         <Button type="submit" variant="contained" endIcon={<FingerprintIcon />}>
           Login
         </Button>

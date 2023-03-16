@@ -1,6 +1,6 @@
 import { Grid } from "@mui/material";
 import React, { useEffect, useState } from "react";
-import BlogCard from "../components/BlogCard";
+import BlogCard from "../components/cards/BlogCard";
 import NavBar from "../components/NavBar";
 // import { useAuthContext } from "../contexts/AuthProvider";
 import useBlogCalls from "../hooks/useBlogCalls";
@@ -22,7 +22,7 @@ const Dashboard = () => {
   return (
     <div>
       <NavBar />
-      <Grid container spacing={2} p={3}>
+      <Grid container spacing={2} p={3} justifyContent="center">
         {blogInfo?.map((blog) => (
           <Grid item key={blog.id}>
             <BlogCard blog={blog} setBlogInfo={setBlogInfo} />
