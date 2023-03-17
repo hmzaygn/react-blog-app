@@ -26,14 +26,13 @@ export default function UpdateModal({
   setBlogDetailInfo,
 }) {
   const { updateBlog } = useBlogCalls();
-  console.log(blogDetailInfo);
 
   const handleChange = (e) => {
     const { value, name } = e.target;
     setBlogDetailInfo({ ...blogDetailInfo, [name]: value });
   };
 
-  //   console.log(blogDetailInfo);
+  console.log(blogDetailInfo);
 
   return (
     <div>
@@ -69,6 +68,18 @@ export default function UpdateModal({
             value={blogDetailInfo.image || ""}
             onChange={handleChange}
           />
+          <Select
+            labelId="demo-simple-select-label"
+            name="status"
+            value={blogDetailInfo.category || ""}
+            onChange={handleChange}
+          >
+            <MenuItem value="p">Human</MenuItem>
+            <MenuItem value="n">Nature</MenuItem>
+            <MenuItem value="l">Life</MenuItem>
+            <MenuItem value="h">Health</MenuItem>
+            <MenuItem value="t">Technology</MenuItem>
+          </Select>
           <Select
             labelId="demo-simple-select-label"
             name="status"

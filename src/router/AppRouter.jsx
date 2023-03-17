@@ -4,9 +4,9 @@ import Dashboard from "../pages/Dashboard";
 import Login from "../pages/Login";
 import Register from "../pages/Register";
 import Profile from "../pages/Profile";
-import NewBlog from "../pages/NewBlog";
 import Details from "../pages/Details";
 import PrivateRouter from "./PrivateRouter";
+import NewBlog from "../pages/NewBlog";
 
 const AppRouter = () => {
   return (
@@ -23,7 +23,6 @@ const AppRouter = () => {
         <Route path="/profile" element={<PrivateRouter />}>
           <Route path="" element={<Profile />} />
         </Route>
-
         <Route path="/newblog" element={<PrivateRouter />}>
           <Route path="" element={<NewBlog />} />
         </Route>

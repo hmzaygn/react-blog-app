@@ -30,10 +30,6 @@ export default function DetailCard({
   const { currentUser } = useAuthContext();
   const navigate = useNavigate();
 
-  // console.log(blogDetailInfo);
-  // console.log(comment);
-  // console.log(currentUser);
-
   const handleClick = () => {
     like(blogDetailInfo?.id);
     getBlogDetail(blogDetailInfo?.id, setBlogDetailInfo);
@@ -61,7 +57,7 @@ export default function DetailCard({
   };
 
   return (
-    <Card sx={{ width: "70%" }}>
+    <Card sx={{ width: "70%", mt: "1rem" }}>
       <CardMedia
         component="img"
         height="194"

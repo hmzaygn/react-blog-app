@@ -1,5 +1,4 @@
 import * as React from "react";
-import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
@@ -11,25 +10,15 @@ import { grey, lightGreen } from "@mui/material/colors";
 import ProfileBlogModal from "../modals/ProfileBlogModal";
 import useBlogCalls from "../../hooks/useBlogCalls";
 
-const bull = (
-  <Box
-    component="span"
-    sx={{ display: "inline-block", mx: "2px", transform: "scale(0.8)" }}
-  >
-    •
-  </Box>
-);
-
-export default function ProfileCards({ blog }) {
-  const [blogInfo, setBlogInfo] = React.useState(blog);
+export default function ProfileCards({ blog_id }) {
+  const [blogInfo, setBlogInfo] = React.useState("");
   const [open, setOpen] = React.useState(false);
 
   const { getBlogDetail } = useBlogCalls();
-  console.log(blog, "render");
 
-  //   React.useEffect(() => {
-  //     getBlogDetail(blogInfo.id, setBlogInfo);
-  //   }, [blogInfo]);
+  React.useEffect(() => {
+    getBlogDetail(blog_id, setBlogInfo);
+  }, [open]);
 
   return (
     <Card
@@ -51,12 +40,7 @@ export default function ProfileCards({ blog }) {
         <Button onClick={() => setOpen(true)}>
           <EditIcon />
         </Button>
-        <ProfileBlogModal
-          open={open}
-          setOpen={setOpen}
-          setBlogInfo={setBlogInfo}
-          blogInfo={blogInfo}
-        />
+        <ProfileBlogModal open={open} setOpen={setOpen} blog_id={blog_id} />
       </CardActions>
     </Card>
   );

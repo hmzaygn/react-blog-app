@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useNavigate } from "react-router";
 import { useAuthContext } from "../contexts/AuthProvider";
+import { toastError, toastSuccess } from "../helpers/toastify";
 
 const useAuthCalls = () => {
   const BASE_URL = "http://127.0.0.1:8000/";
@@ -38,8 +39,10 @@ const useAuthCalls = () => {
         })
       );
       navigate("/");
+      toastSuccess("Congratulations! You have Registered...");
     } catch (error) {
       console.log(error);
+      toastError("Something went wrong!");
     }
   };
 
@@ -67,9 +70,11 @@ const useAuthCalls = () => {
           bio: profileData.bio,
         })
       );
+      toastSuccess(`Welcome Back ${data.user.first_name}`);
       navigate("/");
     } catch (error) {
       console.log(error);
+      toastError("Something went wrong!");
     }
   };
 
@@ -99,8 +104,10 @@ const useAuthCalls = () => {
           bio: data.bio,
         })
       );
+      toastSuccess(`Successfully Updated`);
     } catch (error) {
       console.log(error);
+      toastError("Something went wrong!");
     }
   };
 
@@ -112,8 +119,10 @@ const useAuthCalls = () => {
 
       localStorage.removeItem("USER");
       navigate("/login");
+      toastSuccess(`Logged Out, Have a Nice Day`);
     } catch (error) {
       console.log(error);
+      toastError("Something went wrong!");
     }
   };
 

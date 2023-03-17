@@ -27,7 +27,7 @@ export default function BlogCard({ blog, setBlogInfo }) {
   };
 
   return (
-    <Card sx={{ maxWidth: 345 }}>
+    <Card sx={{ width: 345 }}>
       <Box onClick={() => navigate(`/details/${blog?.id}`)}>
         <CardHeader
           avatar={

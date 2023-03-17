@@ -14,7 +14,7 @@ const Details = () => {
 
   useEffect(() => {
     getBlogDetail(id, setBlogDetailInfo);
-  }, []);
+  }, [open]);
 
   return (
     <>
@@ -23,7 +23,6 @@ const Details = () => {
         sx={{
           display: "flex",
           justifyContent: "center",
-          border: "1px solid red",
         }}
       >
         <UpdateModal

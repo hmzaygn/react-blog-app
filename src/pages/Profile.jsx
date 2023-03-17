@@ -7,12 +7,14 @@ import ProfileModal from "../components/modals/ProfileModal";
 import useAuthCalls from "../hooks/useAuthCalls";
 import useBlogCalls from "../hooks/useBlogCalls";
 import ProfileCards from "../components/cards/ProfileCards";
+import BookIcon from "@mui/icons-material/Book";
+import { useNavigate } from "react-router";
 
 const Profile = () => {
   const { currentUser } = useAuthContext();
   const { updateProfile } = useAuthCalls();
   const { getUsersBlogs } = useBlogCalls();
-  // console.log(currentUser);
+  const navigate = useNavigate();
 
   const [open, setOpen] = useState(false);
   const [usersBlogs, setUsersBlogs] = useState([]);
@@ -31,8 +33,6 @@ const Profile = () => {
   useEffect(() => {
     getUsersBlogs(setUsersBlogs);
   }, []);
-
-  // console.log(usersBlogs);
 
   return (
     <>
@@ -96,9 +96,16 @@ const Profile = () => {
             <h3>You Have No Blogs Yet</h3>
           ) : (
             usersBlogs?.map((blog) => (
-              <ProfileCards key={blog.id} blog={blog} />
+              <ProfileCards key={blog.id} blog_id={blog.id} />
             ))
           )}
+          <Button
+            variant="contained"
+            endIcon={<BookIcon />}
+            onClick={() => navigate("/newblog")}
+          >
+            New Blog
+          </Button>
         </Box>
       </Box>
     </>

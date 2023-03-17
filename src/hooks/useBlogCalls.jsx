@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useAuthContext } from "../contexts/AuthProvider";
+import { toastError, toastSuccess } from "../helpers/toastify";
 
 const useBlogCalls = () => {
   const BASE_URL = "http://127.0.0.1:8000/";
@@ -67,6 +68,18 @@ const useBlogCalls = () => {
     }
   };
 
+  const postBlog = async (info) => {
+    try {
+      await axios.post(`${BASE_URL}api/blog/create/`, info, {
+        headers: { Authorization: `Token ${currentUser?.key}` },
+      });
+      toastSuccess("Blog Posted");
+    } catch (error) {
+      console.log(error);
+      toastError("Something went wrong!");
+    }
+  };
+
   const updateBlog = async (blogDetailInfo) => {
     try {
       await axios.put(
@@ -76,8 +89,10 @@ const useBlogCalls = () => {
           headers: { Authorization: `Token ${currentUser?.key}` },
         }
       );
+      toastSuccess("Blog Updated");
     } catch (error) {
       console.log(error);
+      toastError("Something went wrong!");
     }
   };
 
@@ -86,8 +101,10 @@ const useBlogCalls = () => {
       await axios.delete(`${BASE_URL}api/blog/delete/${id}/`, {
         headers: { Authorization: `Token ${currentUser?.key}` },
       });
+      toastSuccess("Blog Deleted");
     } catch (error) {
       console.log(error);
+      toastError("Something went wrong!");
     }
   };
 
@@ -107,6 +124,7 @@ const useBlogCalls = () => {
     getBlogDetail,
     like,
     postComment,
+    postBlog,
     updateBlog,
     deleteBlog,
     deleteComment,

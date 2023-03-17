@@ -19,18 +19,18 @@ const style = {
   gap: 1,
 };
 
-export default function ProfileBlogModal({
-  open,
-  setOpen,
-  blogInfo,
-  setBlogInfo,
-}) {
-  const { updateBlog } = useBlogCalls();
+export default function ProfileBlogModal({ open, setOpen, blog_id }) {
+  const [modalInfo, setModalInfo] = React.useState("");
+  const { updateBlog, getBlogDetail } = useBlogCalls();
 
   const handleChange = (e) => {
     const { value, name } = e.target;
-    setBlogInfo({ ...blogInfo, [name]: value });
+    setModalInfo({ ...modalInfo, [name]: value });
   };
+
+  React.useEffect(() => {
+    getBlogDetail(blog_id, setModalInfo);
+  }, [open]);
 
   return (
     <div>
@@ -46,7 +46,7 @@ export default function ProfileBlogModal({
             name="title"
             variant="filled"
             label="Title"
-            value={blogInfo.title || ""}
+            value={modalInfo?.title || ""}
             onChange={handleChange}
           />
           <TextField
@@ -55,7 +55,7 @@ export default function ProfileBlogModal({
             name="content"
             variant="filled"
             label="Content"
-            value={blogInfo.content || ""}
+            value={modalInfo?.content || ""}
             onChange={handleChange}
           />
           <TextField
@@ -63,13 +63,13 @@ export default function ProfileBlogModal({
             name="image"
             variant="filled"
             label="Image"
-            value={blogInfo.image || ""}
+            value={modalInfo?.image || ""}
             onChange={handleChange}
           />
           <Select
             labelId="demo-simple-select-label"
             name="status"
-            value={blogInfo.status || ""}
+            value={modalInfo?.status || ""}
             onChange={handleChange}
           >
             <MenuItem value="P">Publish</MenuItem>
@@ -77,7 +77,7 @@ export default function ProfileBlogModal({
           </Select>
           <Button
             variant="contained"
-            onClick={() => (updateBlog(blogInfo), setOpen(false))}
+            onClick={() => (updateBlog(modalInfo), setOpen(false))}
           >
             Update
           </Button>

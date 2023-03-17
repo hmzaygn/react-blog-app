@@ -1,0 +1,31 @@
+.container {
+    position: relative;
+}
+
+.new-blog-button {
+    position: fixed !important;
+    bottom: 20px !important;
+    right: 20px !important;
+    color: rgb(255, 255, 255);
+}
+
+.new-blog-button p {
+    opacity: 0;
+    transition: all .3s;
+    color: rgba(0, 0, 0, 0.5);
+}
+
+.button-icon {
+    width: 3rem !important;
+    height: 3rem !important;
+    color: rgba(0, 0, 0, 0.5);
+}
+
+.new-blog-button:hover p {
+    opacity: 1;
+    color: rgba(0, 0, 0, 0.75);
+}
+
+.new-blog-button:hover .button-icon {
+    color: rgba(0, 0, 0, 0.75);
+}
