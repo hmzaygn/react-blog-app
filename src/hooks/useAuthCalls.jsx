@@ -4,7 +4,7 @@ import { useAuthContext } from "../contexts/AuthProvider";
 import { toastError, toastSuccess } from "../helpers/toastify";
 
 const useAuthCalls = () => {
-  const BASE_URL = "http://127.0.0.1:8000/";
+  const BASE_URL = "https://Feanor.pythonanywhere.com/";
   const navigate = useNavigate();
   const { setCurrentUser, currentUser } = useAuthContext();
 

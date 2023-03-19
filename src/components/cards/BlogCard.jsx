@@ -31,16 +31,15 @@ export default function BlogCard({ blog, setBlogInfo }) {
       <Box onClick={() => navigate(`/details/${blog?.id}`)}>
         <CardHeader
           avatar={
-            <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
-              {blog.author[0].toUpperCase()}
-            </Avatar>
+            <Avatar aria-label="recipe">{blog.author[0].toUpperCase()}</Avatar>
           }
-          title={blog.author}
+          title={`${blog.author.toUpperCase()}'s Post`}
           subheader={new Date(blog?.published_date).toDateString()}
         />
         <CardMedia
           component="img"
           height="194"
+          sx={{ objectFit: "contain" }}
           image={blog?.image}
           alt={blog?.title}
         />

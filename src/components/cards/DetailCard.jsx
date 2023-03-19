@@ -153,7 +153,8 @@ export default function DetailCard({
                 />
               ) : (
                 <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
-                  {item.user.display_name.slice(0, 1).toUpperCase()}
+                  {item.user.display_name?.slice(0, 1).toUpperCase() ||
+                    item.user.user?.slice(0, 1).toUpperCase()}
                 </Avatar>
               )}
             </Box>
@@ -167,7 +168,9 @@ export default function DetailCard({
               }}
             >
               <Box>
-                <Typography variant="h6">{item.user.display_name}</Typography>
+                <Typography variant="h6">
+                  {item.user?.display_name || item.user?.user}
+                </Typography>
                 <Typography paragraph color={blueGrey[600]}>
                   {item.content}
                 </Typography>
